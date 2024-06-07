@@ -12,9 +12,9 @@ docker compose -p dsm up -d
 
 ### step3: 查看并登录 dsm web 控制台
 1. linux 终端查看容器状态
-```shell
-docker compose ls
-```
+   ```shell
+   docker compose ls
+   ```
 2. 登录 web 控制台
    ```shell
    http://{{dsm_container_ip}}:5000
