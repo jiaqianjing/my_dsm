@@ -1,0 +1,31 @@
+networks:
+  vdsm:
+    external: true
+
+services:
+  dsm:
+    container_name: dsm
+    restart: unless-stopped
+    networks:
+      vdsm:
+        ipv4_address: 192.168.123.64
+    image: vdsm/virtual-dsm:latest
+    environment:
+      DISK_SIZE: "4000G"
+      GPU: "Y"
+      RAM_SIZE: "8G"
+      CPU_CORES: "4"
+      DHCP: "Y"
+    devices:
+      - /dev/kvm
+      - /dev/dri
+      - /dev/vhost-net
+    device_cgroup_rules:
+      - 'c *:* rwm'
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 5000:5000
+    volumes:
+      - /root/workspace/data/dsm/storage:/storage
+    stop_grace_period: 2m
